@@ -221,7 +221,7 @@ def return_image(part_or_attachement):
 
         if 'image/jpg' in part_or_attachement.get_content_type():            
             imgfilename = genfile('jpg')
-            imgfile = image_path_prefix + imgfilename
+            imgfile = image_path + imgfilename
             open(imgfile, 'wb').write(part_or_attachement.get_payload(decode=True))
         else:
             imgfilename = ''
