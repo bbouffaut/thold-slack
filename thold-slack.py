@@ -203,7 +203,7 @@ def get_image(message):
 
     if message.is_multipart():
         #print("Message is multipart") #DEBUG
-        #get the image jpg version only
+        #get the FIRST image JPEG version only
         image_parts = [part for part in typed_subpart_iterator(message,'image','jpg')]
         image_part = image_parts[0]
         return return_image(image_part)
