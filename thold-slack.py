@@ -197,32 +197,29 @@ def genfile(extension):
     return filename
 
 def get_image(message):
-    """UPDATE BBO: Check if message is multipart or not. 
-    If so, then parse message body and extract image (JPEG only in this version,
+    #Check if message is multipart or not. 
+    """If so, then parse message body and extract image (JPEG only in this version,
     but it would be quite easy to loop over any kinds of image types"""
 
     if message.is_multipart():
-        #print("Message is multipart") #DEBUG
         #get the FIRST image JPEG version only
         image_parts = [part for part in typed_subpart_iterator(message,'image','jpg')]
         image_part = image_parts[0]
         return return_image(image_part)
 
     else:
-        #print("Message is not multipart but has attachement") #DEBUG
         attachment = message.get_payload()[1]
         return return_image(attachment)
     
 
-def return_image(part_or_attachement):
-    '''UPDATE BBO: extract the image data from the part provided as argument: either part of multipart message, either attachement'''
-
+def return_image(part_or_attachment):
+    
     try:
 
-        if 'image/jpg' in part_or_attachement.get_content_type():            
+        if 'image/jpg' in part_or_attachment.get_content_type():            
             imgfilename = genfile('jpg')
             imgfile = image_path + imgfilename
-            open(imgfile, 'wb').write(part_or_attachement.get_payload(decode=True))
+            open(imgfile, 'wb').write(part_or_attachment.get_payload(decode=True))
         else:
             imgfilename = ''
     except:
